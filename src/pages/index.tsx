@@ -1,22 +1,37 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import Image from "next/image";
+import { Inter } from "next/font/google";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Header from '@/Components/Header/Header'
-import Nav from '../Components/Nav/Nav'
-import Banner from '@/Components/Banner/Banner'
-// import ProductProvider from '@/Components/Product/ProductProvider';
 
-const inter = Inter({ subsets: ['latin'] })
+import Banner from "@/Components/Banner/Banner";
+import Product from "@/Components/Product/Product";
+import { ProductProps } from "../../type";
 
-export default function Home() {
+
+
+// const inter = Inter({ subsets: ["latin"] });
+interface Props{
+  productData: ProductProps
+}
+
+export default function Home({ productData }: Props) {
   return (
     <main>
-      <Header/>
-     <Nav/>
-     <Banner />
-     {/* <ProductProvider/> */}
-     
+      <div className="max-w-screen-2xl mx-auto">
+        <Banner />
+        <div className="relative md:-mt-20 lgl:-mt-32 xl:-mt-60 z-20 mb-10">
+          <Product productData={productData} />
+        </div>
+      </div>
+
+      
     </main>
-  )
+  );
 }
+
+// Server Search Rendering (SSR) or data fetching
+export const getServerSideProps = async () => {
+  const res = await fetch("https://fakestoreapiserver.reactbd.com/tech");
+  const productData = await res.json();
+  return { props: { productData } };
+};

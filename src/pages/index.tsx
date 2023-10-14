@@ -6,15 +6,22 @@ import "slick-carousel/slick/slick-theme.css";
 import Banner from "@/Components/Banner/Banner";
 import Product from "@/Components/Product/Product";
 import { ProductProps } from "../../type";
-
-
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { setAllProducts } from "@/Store/nextSlice";
 
 // const inter = Inter({ subsets: ["latin"] });
-interface Props{
-  productData: ProductProps
+interface Props {
+  productData: ProductProps;
 }
 
 export default function Home({ productData }: Props) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setAllProducts({ allProducts: productData }));
+  }, [productData]);
+
   return (
     <main>
       <div className="max-w-screen-2xl mx-auto">
@@ -23,8 +30,6 @@ export default function Home({ productData }: Props) {
           <Product productData={productData} />
         </div>
       </div>
-
-      
     </main>
   );
 }

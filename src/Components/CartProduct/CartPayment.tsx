@@ -57,7 +57,7 @@ const CartPayment = () => {
       </div>
       <p className="flex items-center justify-between px-2 font-semibold">
         Total:{" "}
-        <span className="font-bold text-xl">
+        <span className="font-bold text-lg">
           <FormattedPrice amount={totalAmount} />
         </span>
       </p>

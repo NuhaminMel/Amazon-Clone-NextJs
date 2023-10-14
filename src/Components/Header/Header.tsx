@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../Images/amazon.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,18 +8,26 @@ import { SlLocationPin } from "react-icons/sl";
 import cart from "../../Images/cartIcon.png";
 import flag from "../../Images/flag.png";
 import { useDispatch, useSelector } from "react-redux";
-import { StateProps } from "../../../type";
+import { StateProps, StoreProduct } from "../../../type";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { addUser } from "@/Store/nextSlice";
+import SearchProducts from "./SearchProducts";
 
 const Header = () => {
   const { data: session } = useSession();
 
-  const { productData, favoriteData, userInfo } = useSelector(
+  const [allData, setAllData] = useState([]);
+
+  const { productData, favoriteData, userInfo, allProducts } = useSelector(
     (state: StateProps) => state.next
   );
   //  console.log(session);
   const dispatch = useDispatch();
+  // for the search bar //
+  useEffect(() => {
+    setAllData(allProducts.allProducts);
+  }, [allProducts]);
+
   useEffect(() => {
     if (session) {
       dispatch(
@@ -32,19 +40,26 @@ const Header = () => {
     }
   }, [session]);
 
+  // Searc Products //
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  useEffect(() => {
+    const filtered = allData.filter((item: StoreProduct) =>
+      item.title.toLocaleLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredData(filtered);
+  }, [searchQuery]);
+
   return (
     <header className="w-full h-15 bg-amazon_blue text-lightText sticky top-0 z-50">
       <div className="h-full w-full mx-auto inline-flex items-center justify-between gap-1 mdl:gap-3 px-4">
         {/* logo section */}
         <div className="py-5 px-2">
-          {/* <Link
-            href={"/"}
-            className="px-2 border border-transparent hover:border-white cursor-pointer duration-300 flex items-center justify-center h-[70%]"
-          >
-            <Image className="w-28 mt-1 object-cover" src={logo} alt="logo" />
-          </Link> */}
-
-          {/* Amazon LOGO */}
           <Link
             href={"/"}
             className="px-2 border border-transparent hover:border-white cursor-pointer duration-300 flex items-center justify-center h-[70%]"
@@ -56,6 +71,7 @@ const Header = () => {
             />
           </Link>
         </div>
+
         {/* Delivery Section */}
         <div className="px-2 border border-transparent hover:border-white cursor-pointer duration-300 items-center justify-center h-[70%] hidden xl:inline-flex gap-1">
           <SlLocationPin />
@@ -64,10 +80,13 @@ const Header = () => {
             <p className="text-white font-bold uppercase">USA</p>
           </div>
         </div>
+        {/* ================Delivery Section End============ */}
 
         {/* Search */}
         <div className="text-black flex-1 h-10 md:inline-flex items-center justify-between relative hidden md:d-flex">
           <input
+            onChange={handleSearch}
+            value={searchQuery}
             className="w-full h-full rounded-md px-2 placeholder::text-sm text-base text-black border-[3px] border-transparent outline-none focus-visible:border-amazon_yellow"
             type="text"
             placeholder="Search Amazon"
@@ -75,13 +94,49 @@ const Header = () => {
           <span className="w-12 h-full bg-amazon_yellow text-black text-2xl flex items-center justify-center absolute right-0 rounded-tr-md rounded-br-md">
             <HiOutlineSearch />
           </span>
+
+          {/* Searched Items  */}
+          {searchQuery && (
+            <div className="absolute left-0 top-12 w-full mx-auto max-h-96 bg-gray-100 rounded-lg overflow-y-scroll cursor-pointer text-black">
+              {filteredData.length > 0 ? (
+                <>
+                  {searchQuery &&
+                    filteredData.map((item: StoreProduct) => (
+                      <Link
+                        className="w-full border-b-[1px] border-b-gray-400 flex items-center gap-4"
+                        key={item._id}
+                        href={{
+                          pathname: `${item._id}`,
+                          query: {
+                            _id: item._id,
+                            brand: item.brand,
+                            category: item.category,
+                            image: item.image,
+                            description: item.description,
+                            isNew: item.isNew,
+                            oldPrice: item.oldPrice,
+                            price: item.price,
+                            title: item.title,
+                          },
+                        }}
+                        onClick={() => setSearchQuery("")}
+                      >
+                        <SearchProducts item={item} />
+                      </Link>
+                    ))}
+                </>
+              ) : (
+                <div className="bg-gray-50 flex items-center justify-center py-10 rounded-lg shadow-lg">
+                  <p className="text-md text-gray-500 font-semibold animate-pulse">
+                    No results found. Check the spelling or use a different word
+                    or phrase.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-
-        {/* Flag & language */}
-
-        {/* <div>
-          <Image className="w-6 mt-1 object-cover" src={flag} alt="logo" />
-        </div> */}
+        {/* =================Search Bar End==================*/}
 
         {/* Sign In */}
         {userInfo ? (
@@ -110,6 +165,7 @@ const Header = () => {
             </p>
           </div>
         )}
+        {/* ================Sign In End*==================/}
 
         {/* Favorites */}
         <Link
@@ -124,12 +180,7 @@ const Header = () => {
             </span>
           )}
         </Link>
-
-        {/* Return & Orders */}
-        {/* <div className="text-xs text-grey-100 flex flex-col justify-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%]">
-          <p>Returns </p>
-          <p className="text-white font-bold"> & Orders</p>
-        </div> */}
+        {/* ========================Favorites End====================*/}
 
         {/* Shopping Cart */}
         <Link

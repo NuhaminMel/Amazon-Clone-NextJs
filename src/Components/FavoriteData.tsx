@@ -1,4 +1,4 @@
-import FormattedPrice from "../Product/FormattedPrice";
+import FormattedPrice from "./FormattedPrice";
 import { useDispatch } from "react-redux";
 import { addToCart, deleteFavorite } from "@/Store/nextSlice";
 import Image from "next/image";

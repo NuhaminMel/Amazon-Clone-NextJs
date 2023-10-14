@@ -5,7 +5,7 @@ import { addToCart, addToFavorite } from "@/Store/nextSlice";
 import { useDispatch } from "react-redux";
 import { HiShoppingCart } from "react-icons/hi";
 import { FaHeart } from "react-icons/fa";
-import FormattedPrice from "@/Components/Product/FormattedPrice";
+import FormattedPrice from "@/Components/FormattedPrice";
 import { BeatLoader } from "react-spinners";
 
 const DynamicPage = () => {

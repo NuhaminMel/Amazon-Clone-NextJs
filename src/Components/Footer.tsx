@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from '../../Images/amazon.png';
+import logo from '../Images/amazon.png';
 
 function Footer() {
   return (

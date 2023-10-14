@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
-import slide1 from "../../Images/Slide1.jpeg";
-import slide2 from "../../Images/Slide2.jpeg";
-import slide3 from "../../Images/Slide3.jpeg";
-import slide4 from "../../Images/Slide4.jpeg";
+import slide1 from "../Images/Slide1.jpeg";
+import slide2 from "../Images/Slide2.jpeg";
+import slide3 from "../Images/Slide3.jpeg";
+import slide4 from "../Images/Slide4.jpeg";
 
 function Banner() {
   return (

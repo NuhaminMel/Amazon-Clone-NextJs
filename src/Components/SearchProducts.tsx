@@ -1,6 +1,6 @@
 import React from "react";
 
-import FormattedPrice from "../Product/FormattedPrice";
+import FormattedPrice from "./FormattedPrice";
 
 interface Props {
   brand: string;

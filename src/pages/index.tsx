@@ -3,8 +3,8 @@ import { Inter } from "next/font/google";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import Banner from "@/Components/Banner/Banner";
-import Product from "@/Components/Product/Product";
+import Banner from "@/Components/Banner";
+import Product from "@/Components/Product";
 import { ProductProps } from "../../type";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";

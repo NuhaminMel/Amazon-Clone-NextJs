@@ -1,9 +1,8 @@
 import { useSelector } from "react-redux";
 import { StateProps, StoreProduct } from "../../type";
-import FavoriteData from "@/Components/FavoriteData/FavoriteData";
-import ResetFavItems from "@/Components/FavoriteData/ResetFavItems";
+import FavoriteData from "@/Components/FavoriteData";
+import ResetFavItems from "@/Components/ResetFavItems";
 import Link from "next/link";
-
 
 const FavoritePage = () => {
   const { favoriteData } = useSelector((state: StateProps) => state.next);

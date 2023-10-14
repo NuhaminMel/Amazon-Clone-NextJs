@@ -1,6 +1,6 @@
 import { LuMenu } from "react-icons/lu";
 import { BiCaretDown } from "react-icons/bi";
-import { StateProps } from "../../../type";
+import { StateProps } from "../../type";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "next-auth/react";
 import { removeUser } from "@/Store/nextSlice";
@@ -31,7 +31,7 @@ function Nav() {
         Help Center
       </p>
       <p className="hidden md:inline-flex items-center h-8 px-2 border border-transparent hover:border-white cursor-pointer duration-300">
-        Today&apos;s Deals
+        Today&lsquo;s Deals
       </p>
       <p className="hidden md:inline-flex items-center h-8 px-2 border border-transparent hover:border-white cursor-pointer duration-300">
         Fashion

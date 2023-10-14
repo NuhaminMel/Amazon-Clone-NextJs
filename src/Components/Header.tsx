@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../Images/amazon.png";
+import logo from "../Images/amazon.png";
 import Image from "next/image";
 import Link from "next/link";
 import { BiCaretDown } from "react-icons/bi";
 import { HiOutlineSearch } from "react-icons/hi";
 import { SlLocationPin } from "react-icons/sl";
-import cart from "../../Images/cartIcon.png";
-import flag from "../../Images/flag.png";
+import cart from "../Images/cartIcon.png";
 import { useDispatch, useSelector } from "react-redux";
-import { StateProps, StoreProduct } from "../../../type";
+import { StateProps, StoreProduct } from "../../type";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { addUser } from "@/Store/nextSlice";
 import SearchProducts from "./SearchProducts";

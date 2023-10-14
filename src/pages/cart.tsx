@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { StateProps, StoreProduct } from "../../type";
-import CartProduct from "@/Components/CartProduct/CartProduct";
-import ResetCart from "@/Components/CartProduct/ResetCart";
+import CartProduct from "@/Components/CartProduct";
+import ResetCart from "@/Components/ResetCart";
 import Link from "next/link";
-import CartPayment from "@/Components/CartProduct/CartPayment";
+import CartPayment from "@/Components/CartPayment";
 
 const CartPage = () => {
   const { productData } = useSelector((state: StateProps) => state.next);
